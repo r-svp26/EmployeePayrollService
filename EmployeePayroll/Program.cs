@@ -35,6 +35,7 @@ namespace EmployeePayroll
         {
             Console.WriteLine("Welcome to Employee Payroll Service");
             DisplayEmployeeDetails();
+            employeeOperation.UpdateEmployeeSalary();
         }
     }
 }
