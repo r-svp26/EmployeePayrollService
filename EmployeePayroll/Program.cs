@@ -34,10 +34,10 @@ namespace EmployeePayroll
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Employee Payroll Service");
-            DisplayEmployeeDetails();
-            employeeOperation.UpdateEmployeeSalary();
-            Console.WriteLine("Employee Details between Start date and End date");
-            employeeOperation.GetEmployeeDetailsByDate();
+            //DisplayEmployeeDetails();
+            //employeeOperation.UpdateEmployeeSalary();
+            //Console.WriteLine("Employee Details between Start date and End date");
+            //employeeOperation.GetEmployeeDetailsByDate();
         }
     }
 }

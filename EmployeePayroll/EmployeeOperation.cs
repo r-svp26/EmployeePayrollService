@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EmployeePayroll
 {
@@ -25,7 +27,7 @@ namespace EmployeePayroll
         /// get all the employee details using Stored Procedure.
         /// </summary>
         /// <returns></returns>
-        public List<Employee> GetAllEmployeeDetails() 
+        public List<Employee> GetAllEmployeeDetails()
         {
             this.sqlConnection.Open();
             try
@@ -47,7 +49,7 @@ namespace EmployeePayroll
                                 PhoneNumber = Convert.ToString(data["PhoneNumber"]),
                                 Address = Convert.ToString(data["Address"]),
                                 Department = Convert.ToString(data["Department"]),
-                                BasicPay= Convert.ToInt32(data["BasicPay"]),
+                                BasicPay = Convert.ToInt32(data["BasicPay"]),
                                 Deduction = Convert.ToDouble(data["Deduction"]),
                                 TaxablePay = Convert.ToDouble(data["TaxablePay"]),
                                 Tax = Convert.ToDouble(data["Tax"]),
@@ -83,7 +85,7 @@ namespace EmployeePayroll
                 SqlCommand sqlCommand = new SqlCommand("spUpdateEmployee", sqlConnection);
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.Parameters.AddWithValue("@Name", emp.Name);
-                sqlCommand.Parameters.AddWithValue("@BasicPay", emp.BasicPay); 
+                sqlCommand.Parameters.AddWithValue("@BasicPay", emp.BasicPay);
                 int result = sqlCommand.ExecuteNonQuery();
                 if (result == 1)
                     Console.WriteLine("Salary is updated...");
@@ -97,7 +99,7 @@ namespace EmployeePayroll
             }
             finally
             {
-                    this.sqlConnection.Close();
+                this.sqlConnection.Close();
             }
         }
         /// <summary>
@@ -106,8 +108,8 @@ namespace EmployeePayroll
         public void GetEmployeeDetailsByDate()
         {
             Employee employee = new Employee();
-            DateTime startDate = new DateTime(1997,01,10);
-            DateTime endDate = new DateTime(2010,04,15);
+            DateTime startDate = new DateTime(1997, 01, 10);
+            DateTime endDate = new DateTime(2010, 04, 15);
             try
             {
                 this.sqlConnection.Open();
@@ -155,6 +157,24 @@ namespace EmployeePayroll
             {
                 this.sqlConnection.Close();
             }
+        }
+        /// <summary>
+        /// Add Multiple Employee Without Thread
+        /// </summary>
+        /// <param name="empList"></param>
+        public void AddMultipleEmployee(List<Employee> empList)
+        {
+            empList.ForEach(employeeData =>
+            {
+                Console.WriteLine("Employee being added:" + employeeData.Name);
+                this.AddMultipleEmployee(employeeData);
+                Console.WriteLine("Employee added:" + employeeData.Name);
+            });
+            Console.WriteLine(this.empList.ToString());
+        }
+        public void AddMultipleEmployee(Employee emp)
+        {
+            empList.Add(emp);
         }
     }
 }

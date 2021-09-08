@@ -23,5 +23,34 @@ namespace EmployeePayroll
         public DateTime StartDate { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
+        /// <summary>
+        /// default constructor
+        /// </summary>
+        public Employee() 
+        {
+        }
+        /// <summary>
+        /// parametrized constructor
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="City"></param>
+        public Employee(int ID, string Name, string Gender, string PhoneNumber, string Address, string Department, int BasicPay,
+                        double Deduction, double TaxablePay, double Tax, double NetPay, DateTime StartDate, string City, string Country)
+        {
+            this.ID = ID;
+            this.Name = Name;
+            this.Gender = Gender;
+            this.PhoneNumber = PhoneNumber;
+            this.Address = Address;
+            this.Department = Department;
+            this.BasicPay = BasicPay;
+            this.Deduction = Deduction;
+            this.TaxablePay = TaxablePay;
+            this.Tax = Tax;
+            this.NetPay = NetPay;
+            this.StartDate = StartDate;
+            this.City = City;
+            this.Country = Country;
+        }
     }
 }
