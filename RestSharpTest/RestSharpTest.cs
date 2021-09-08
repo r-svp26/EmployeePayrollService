@@ -1,7 +1,9 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using RestSharp;
 using System.Collections.Generic;
+using System.Net;
 
 namespace RestSharpTest
 {
@@ -41,6 +43,22 @@ namespace RestSharpTest
             {
                 System.Console.WriteLine("ID: " + emp.ID + "\t Name: " + emp.Name + "\t Salary: " + emp.Salary);
             }
+        }
+        [Test]
+        public void GivenEmployee_OnPOSTApi_ShouldReturnAddedEmployee()
+        {
+            RestRequest request = new RestRequest("/employee", Method.POST);
+            JObject jObject = new JObject();
+            jObject.Add("Name", "Radhika");
+            jObject.Add("Salary", "1050");
+
+            request.AddParameter("application/json", jObject, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.Created);
+            Employee dataResponce = JsonConvert.DeserializeObject<Employee>(response.Content);
+            Assert.AreEqual("Radhika", dataResponce.Name);
+            Assert.AreEqual("1050", dataResponce.Salary);
+            System.Console.WriteLine(response.Content);
         }
     }
 }
